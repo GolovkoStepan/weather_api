@@ -1,0 +1,13 @@
+weather_data_service:
+  api_key: 'W4N1RHYjQihr5CMPWjYJIYImaxKySneA'
+  city_id: 294021
+  current_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i'
+  historical_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i/historical/24'
+
+cache_service:
+  redis:
+    host: 'localhost'
+    port: 6379
+    db: 1
+  ttl: 3600 # seconds
+  key_prefix: 'weather_api_cache:%s'

@@ -1,0 +1,5 @@
+weather_data_service:
+  api_key: 'api_key'
+  city_id: 1
+  current_data_uri: 'https://test.com/weather/%i'
+  historical_data_uri: 'https://test.com/weather/%i/historical/24'
