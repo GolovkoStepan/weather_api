@@ -4,7 +4,6 @@ gem 'grape'
 gem 'puma'
 gem 'rack'
 
-gem 'active_interaction', '~> 5.1'
 gem 'config'
 gem 'redis'
 gem 'rest-client'

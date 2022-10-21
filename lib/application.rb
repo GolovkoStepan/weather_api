@@ -4,13 +4,14 @@ require 'config'
 
 require_relative 'services/weather_data_service'
 require_relative 'services/cache_service'
+require_relative '../app/weather/api'
 
 class Application
   include Singleton
 
   class << self
     extend Forwardable
-    delegate %i[root env config logger services] => :instance
+    delegate %i[root env config logger services api] => :instance
   end
 
   def root
@@ -23,6 +24,10 @@ class Application
 
   def logger
     @logger ||= Logger.new($stdout)
+  end
+
+  def api
+    Weather::API
   end
 
   def services

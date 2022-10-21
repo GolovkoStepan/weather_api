@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis
+    restart: always
+  api:
+    build: .
+    command: bash -c 'bundle exec puma'
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+    volumes:
+      - .:/weather_api
+    ports:
+      - '9292:9292'
+    depends_on:
+      - redis

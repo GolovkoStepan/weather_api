@@ -1,13 +1,13 @@
 weather_data_service:
-  api_key: 'W4N1RHYjQihr5CMPWjYJIYImaxKySneA'
+  api_key: <%= ENV.fetch('API_KEY', 'W4N1RHYjQihr5CMPWjYJIYImaxKySneA') %>
   city_id: 294021
   current_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i'
   historical_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i/historical/24'
 
 cache_service:
   redis:
-    host: 'localhost'
-    port: 6379
-    db: 1
+    host: <%= ENV.fetch('REDIS_HOST', 'localhost') %>
+    port: <%= ENV.fetch('REDIS_PORT', 6379) %>
+    db: <%= ENV.fetch('REDIS_DB', 1) %>
   ttl: 3600 # seconds
   key_prefix: 'weather_api_cache:%s'
