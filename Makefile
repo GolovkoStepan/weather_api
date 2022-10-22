@@ -31,8 +31,8 @@ server:
 
 .PHONY: docker_start
 docker_start:
-	docker-compose up
+	docker-compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from api
 
 .PHONY: docker_stop
 docker_stop:
-	docker-compose down --remove-orphans
+	docker-compose -f docker-compose.yml down --remove-orphans --volumes

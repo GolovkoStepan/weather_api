@@ -7,11 +7,15 @@ module Weather
   class API < Grape::API
     format :json
 
-    insert_after Grape::Middleware::Formatter, Grape::Middleware::Logger, { logger: Application.logger }
+    insert_after Grape::Middleware::Formatter, Grape::Middleware::Logger, { logger: }
 
     rescue_from(:all) { |e| error!(json_error(e.message), 200) }
 
     helpers do
+      def logger
+        Application.logger
+      end
+
       def weather_data_service
         Application.services[:weather_data_service]
       end
@@ -50,15 +54,21 @@ module Weather
       end
 
       def json_response(data)
-        { status: :ok, data: }
+        { status: :ok, data: }.tap do |payload|
+          logger.info("[API] Response payload: #{payload}")
+        end
       end
 
       def json_ok(message)
-        { status: :ok, message: }
+        { status: :ok, message: }.tap do |payload|
+          logger.info("[API] Response payload: #{payload}")
+        end
       end
 
       def json_error(message)
-        { status: :error, message: }
+        { status: :error, message: }.tap do |payload|
+          logger.info("[API] Response payload: #{payload}")
+        end
       end
     end
 
