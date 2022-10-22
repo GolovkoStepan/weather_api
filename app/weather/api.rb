@@ -1,10 +1,13 @@
 require 'grape'
+require 'grape/middleware/logger'
 
 require_relative '../../lib/application'
 
 module Weather
   class API < Grape::API
     format :json
+
+    insert_after Grape::Middleware::Formatter, Grape::Middleware::Logger, { logger: Application.logger }
 
     rescue_from(:all) { |e| error!(json_error(e.message), 200) }
 

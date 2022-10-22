@@ -8,6 +8,7 @@ services:
     build: .
     command: bash -c 'bundle exec puma'
     environment:
+      - API_KEY=W4N1RHYjQihr5CMPWjYJIYImaxKySneA
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_DB=1

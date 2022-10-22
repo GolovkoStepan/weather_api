@@ -1,5 +1,5 @@
 weather_data_service:
-  api_key: <%= ENV.fetch('API_KEY', 'W4N1RHYjQihr5CMPWjYJIYImaxKySneA') %>
+  api_key: <%= ENV['API_KEY'] %>
   city_id: 294021
   current_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i'
   historical_data_uri: 'https://dataservice.accuweather.com/currentconditions/v1/%i/historical/24'

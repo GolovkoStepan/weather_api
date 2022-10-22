@@ -1,5 +1,5 @@
 .PHONY: check
-check: rubocop rspec
+check: rubocop security bundle-audit rspec
 
 .PHONY: bundle_install
 bundle_install:
@@ -12,6 +12,14 @@ console:
 .PHONY: rubocop
 rubocop:
 	bundle exec rubocop
+
+.PHONY: security
+security:
+	bundle exec brakeman --no-pager
+
+.PHONY: bundle-audit
+bundle-audit:
+	bundle exec bundle-audit check --update
 
 .PHONY: rspec
 rspec:

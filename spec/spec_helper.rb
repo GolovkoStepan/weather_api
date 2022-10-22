@@ -1,6 +1,9 @@
 require 'webmock/rspec'
 require 'rack/test'
 require 'json'
+require 'simplecov'
+
+SimpleCov.start
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
