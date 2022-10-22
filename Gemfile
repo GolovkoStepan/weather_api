@@ -9,7 +9,7 @@ gem 'redis'
 gem 'rest-client'
 
 group :development, :test do
-  gem 'dry-schema'
+  gem 'rack-test'
   gem 'rspec', '~> 3.5'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false

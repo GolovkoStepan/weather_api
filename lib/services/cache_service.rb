@@ -15,7 +15,9 @@ module Services
     end
 
     def read_historical_data
-      read_from_redis('historical')
+      read_from_redis('historical').tap do |data|
+        data[:items]&.transform_keys! { |key| key.to_s.to_i }
+      end
     end
 
     def write_current_data(data)

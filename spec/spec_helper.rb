@@ -1,4 +1,6 @@
 require 'webmock/rspec'
+require 'rack/test'
+require 'json'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

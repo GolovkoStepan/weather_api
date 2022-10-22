@@ -38,7 +38,7 @@ module Weather
       end
 
       def find_closest_timestamp(timestamp)
-        timestamps = weather_historical_data[:items].keys.map { |el| el.to_s.to_i }
+        timestamps = weather_historical_data[:items].keys
         return if timestamp.nil? || timestamp < timestamps.min || timestamp > timestamps.max
 
         timestamps.min do |candidate, next_value|
@@ -50,6 +50,10 @@ module Weather
         { status: :ok, data: }
       end
 
+      def json_ok(message)
+        { status: :ok, message: }
+      end
+
       def json_error(message)
         { status: :error, message: }
       end
@@ -57,7 +61,7 @@ module Weather
 
     desc 'Health check'
     get 'health' do
-      json_response(message: 'Service available')
+      json_ok('Service available')
     end
 
     resource 'weather' do
@@ -70,7 +74,7 @@ module Weather
       params { requires :timestamp, type: Integer, desc: 'Epoch Unix Timestamp' }
       get 'by_time' do
         if (target_timestamp = find_closest_timestamp(params[:timestamp]))
-          json_response(value: weather_historical_data.dig(:items, target_timestamp.to_s.to_sym))
+          json_response(value: weather_historical_data.dig(:items, target_timestamp))
         else
           json_error('not found')
         end
@@ -79,22 +83,23 @@ module Weather
       resource 'historical' do
         desc 'Temperature for last 24 hours'
         get do
-          json_response(items: weather_historical_data[:items])
+          data = weather_historical_data[:items].map { |k, v| { timestamp: k, value: v } }
+          json_response(data)
         end
 
         desc 'Max temperature for last 24 hours'
         get 'max' do
-          json_response(max: weather_historical_data[:max])
+          json_response(value: weather_historical_data[:max])
         end
 
         desc 'Min temperature for last 24 hours'
         get 'min' do
-          json_response(min: weather_historical_data[:min])
+          json_response(value: weather_historical_data[:min])
         end
 
         desc 'Avg temperature for last 24 hours'
         get 'avg' do
-          json_response(avg: weather_historical_data[:avg])
+          json_response(value: weather_historical_data[:avg])
         end
       end
     end
